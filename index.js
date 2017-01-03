@@ -17,7 +17,6 @@ module.exports = function(obj) {
         values = [values];
       }
     }
-
     const arg = values.map((value) => {
       //if value is true, then just output without value
       if (value === true) {
@@ -27,9 +26,11 @@ module.exports = function(obj) {
       if (value.toString().indexOf(' ') !== -1) {
         value = `"${value}"`;
       }
+      if (key === '_') {
+        return `${value}`;
+      }
       return `${pre}${key} ${value}`;
     });
-
     return arg.join(' ').trim();
   });
   return args.join(' ').trim();

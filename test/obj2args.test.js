@@ -91,3 +91,22 @@ test('real example', t => {
   });
   t.equal(args, '-d --port 8000 -e VIRTUAL_HOST=example.com -e NODE_ENV=production --log-driver awslogs --log-opt awslogs-group=production --log-opt awslogs-stream=app');
 });
+
+test('if key is "_", do not add any -/-- prefixes', t => {
+  t.plan(1);
+  const args = obj2args({
+    _: 'blah blah',
+    test: 1
+  });
+  t.equal(args, '"blah blah" --test 1');
+});
+
+test('if key is "_" and value is array, do not add -/-- prefixes', t => {
+// { _: ['hi', 'there bob'], 'test': 1 } => '--test 1 hi "there bob"'`, t => {
+  t.plan(1);
+  const args = obj2args({
+    _: ['hi', 'there bob'],
+    test: 1
+  });
+  t.equal(args, 'hi "there bob" --test 1');
+});
