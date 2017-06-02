@@ -26,7 +26,7 @@ module.exports = function(obj) {
       if (value.toString().indexOf(' ') !== -1) {
         value = `"${value}"`;
       }
-      if (key === '_') {
+      if (key === '_' || key === '__') {
         return `${value}`;
       }
       return `${pre}${key} ${value}`;

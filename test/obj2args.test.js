@@ -110,3 +110,14 @@ test('if key is "_" and value is array, do not add -/-- prefixes', t => {
   });
   t.equal(args, 'hi "there bob" --test 1');
 });
+
+test('if key is "__" no prefix', t => {
+// { _: ['hi', 'there bob'], 'test': 1 } => '--test 1 hi "there bob"'`, t => {
+  t.plan(1);
+  const args = obj2args({
+    _: ['hi', 'there bob'],
+    test: 1,
+    __: 'yep',
+  });
+  t.equal(args, 'hi "there bob" --test 1 yep');
+});
